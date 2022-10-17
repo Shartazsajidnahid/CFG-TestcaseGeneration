@@ -1,7 +1,9 @@
 package cfg;
 import java.io.IOException;
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TestCaseGen {
 
@@ -25,24 +27,23 @@ public class TestCaseGen {
     }
 
 
-    
+
     public void start() throws IOException{
         cur=0;
-        
+
         while(Lines.get(cur).contains("intmain(){") || Lines.get(cur).charAt(0)=='#' || (Lines.get(cur).charAt(0)=='/' && Lines.get(cur).charAt(0)=='/')){
             cur++;
         }
-        
+
         Node root = new Node(cur,Lines.get(cur));
         cur++;
         makeRelations(root);
-
     }
-    
-    
+
+
     public void makeRelations(Node branchRoot){
         HashMap<Character, Integer> values = new HashMap<Character, Integer>();
-        
+
         while(cur<Lines.size()) {
 
             //System.out.println("finished " + cur);
@@ -51,7 +52,26 @@ public class TestCaseGen {
             String currentString = curNode.Statement;
             currentString = currentString.replaceAll("\\s","");
 
-            if(checker.isIf(currentString) || checker.isElseIf(currentString)){
+            if(isInt(currentString)){
+                boolean foundeq = false;
+                int cursor = 3;
+                while(cursor< currentString.length()){
+                    if(currentString.charAt(cursor) == '='){
+                        foundeq = true;
+                        break;
+                    }
+                    System.out.println(currentString.charAt(cursor));
+                    cursor++;
+                }
+                if(!foundeq){
+                    cur++;
+                    continue;
+                }
+
+                System.out.println("yessssssss");
+
+            }
+            else if(checker.isIf(currentString) || checker.isElseIf(currentString)){
                 System.out.println("HEY");
                 int cursor = 3;
                 if(checker.isElseIf(currentString)){
@@ -59,7 +79,7 @@ public class TestCaseGen {
                     cursor = 7;
                 }
                 Character var1;
-                
+
                 // for(;cursor<currentString.length(); cursor++ ){
                 //     // if(currentString[])
                 //     System.out.println(currentString.charAt(cursor) + " " + cursor);
@@ -71,23 +91,23 @@ public class TestCaseGen {
                     if(currentString.charAt(cursor+1) == '='){
                         cursor+=2;
                     }
-                    else{ 
+                    else{
                         cursor++;
                     }
-                    
+
                 }
 
                 String secondPart = "";
-                int var2; 
+                int var2;
                 while(currentString.charAt(cursor)!=')'){
                     secondPart += currentString.charAt(cursor++);
                 }
                 System.out.println(secondPart);
-                
+
                 try {
                     var2 = Integer.parseInt(secondPart);
                     System.out.println("integer: " + var2);
-                    
+
                 } catch (NumberFormatException e) {
                     System.out.println("Input String cannot be parsed to Integer.");
                 }
@@ -103,41 +123,31 @@ public class TestCaseGen {
 
 
             }
-    
+
             else if(checker.isLoop(curNode.Statement)){
             }
-        
+
             else{
-     
+
             }
             cur++;
         }
     }
-    
-    
-    
- 
-   
-    public void printGraph (){
-        System.out.println("\nAdjacency List:");
-        for(int i=0; i<Lines.size(); i++){
-            System.out.print("\t"+i+"  ->   ");
-            for(int j=0; j<Lines.size(); j++){
-                if(adj[i][j]==1){
-                    System.out.print(j+" ");
-                }
+
+
+
+
+
+    public boolean isInt(String statement){
+        statement = statement.replaceAll("\\s","");statement = statement.replaceAll("\\s","");
+        if(statement.length()>=3){
+            if(statement.charAt(0)=='i' && statement.charAt(1)=='n' && statement.charAt(2)=='t'){
+                return true;
             }
-            System.out.println();
         }
-        System.out.println("\nAdjacency Matrix:");
-        for(int i=0; i<Lines.size(); i++){
-            System.out.print("\t"+i+"\t");
-            for(int j=0; j<Lines.size(); j++){
-                System.out.print(adj[i][j]+" ");
-            }
-            System.out.println();
-        }
+        return false;
     }
- 
-    
+
+
+
 }
