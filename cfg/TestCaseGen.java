@@ -68,7 +68,21 @@ public class TestCaseGen {
                     continue;
                 }
 
-                System.out.println("yessssssss");
+                Character var = currentString.charAt(cursor-1);
+                cursor++; //ahead of equal now
+
+                String value = "";
+                while(cursor< currentString.length()){
+                    if(currentString.charAt(cursor) == ';'){
+                        break;
+                    }
+                    value += currentString.charAt(cursor);
+                    cursor++;
+                }
+
+                values.put(var,Integer.parseInt(value) );
+
+                System.out.println("yessssssss : " + values);
 
             }
             else if(checker.isIf(currentString) || checker.isElseIf(currentString)){
@@ -98,7 +112,7 @@ public class TestCaseGen {
                 }
 
                 String secondPart = "";
-                int var2;
+                int var2 = 0;
                 while(currentString.charAt(cursor)!=')'){
                     secondPart += currentString.charAt(cursor++);
                 }
@@ -109,7 +123,17 @@ public class TestCaseGen {
                     System.out.println("integer: " + var2);
 
                 } catch (NumberFormatException e) {
-                    System.out.println("Input String cannot be parsed to Integer.");
+//                    System.out.println("Input String cannot be parsed to Integer.");
+                    Character mined;
+                    mined = secondPart.charAt(0);
+                    if(values.containsKey(mined)){
+                        var2 = values.get(mined);
+                    }
+                    if(secondPart.length()>1){
+                        var2 = getCalcedval(var2, secondPart);
+                    }
+                    System.out.println("var2 : " + var2);
+
                 }
 
 
@@ -134,8 +158,18 @@ public class TestCaseGen {
         }
     }
 
-
-
+    private int getCalcedval(int var, String secondPart) {
+        int val = 0;
+        Character op = secondPart.charAt(1);
+        String x = secondPart.substring(2, secondPart.length());
+//        System.out.println("x : " + x);
+        val = Integer.parseInt(x);
+        if(op=='+') val = val+var;
+        else if(op=='-') val = var-val;
+        else if(op=='*') val = var*val;
+        else if(op=='/') val = var/val;
+        return  val;
+    }
 
 
     public boolean isInt(String statement){
