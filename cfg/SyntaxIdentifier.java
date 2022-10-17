@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cfg;
 
-/**
- *
- * @author sikde
- */
 public class SyntaxIdentifier {
     
     
@@ -67,7 +59,7 @@ public class SyntaxIdentifier {
         }
         return false;
     }
-    public boolean isLoop(String statement){                        //"for(" nowt working, so instead using for
+    public boolean isLoop(String statement){                     
         statement = statement.replaceAll("\\s","");
         if(isFor(statement) || isWhile(statement)){
             return true;

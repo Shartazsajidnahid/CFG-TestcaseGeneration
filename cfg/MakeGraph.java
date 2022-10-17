@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cfg;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,10 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- *
- * @author sikde
- */
+
 public class MakeGraph {
     
     ArrayList<String>Lines;
@@ -198,6 +191,7 @@ public class MakeGraph {
             System.out.println();
         }
     }
+    private int edgeCount = 0;
     public void saveGraph() throws IOException{
         try (FileWriter myWriter = new FileWriter("/home/nahid/Documents/CFG-TestcaseGeneration/cfg/Edges.txt")) {
             //myWriter.write((Lines.size())+"\n");
@@ -205,10 +199,15 @@ public class MakeGraph {
                 for(int j=0; j<Lines.size(); j++){
                     if(adj[i][j]==1){
                         myWriter.write(i+" "+j+"\n");
+                        edgeCount++;
                     }
                 }
             }
         }
+        System.out.println("Total Nodes : " + Lines.size());
+        System.out.println("Total Edges : " + edgeCount);
+        int cc = edgeCount - Lines.size() + 2;
+        System.out.println("\n\n\n\nCyclomatic Complexity : "   + cc );
     }
     
 }

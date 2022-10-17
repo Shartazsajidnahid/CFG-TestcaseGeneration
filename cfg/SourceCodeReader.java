@@ -20,17 +20,19 @@ public class SourceCodeReader {
     public SourceCodeReader(String s) throws FileNotFoundException, IOException{
       
         File file = new File(s);
-        Scanner scan = new Scanner(file);
-        ArrayList<String> Lines = new ArrayList<>();
-        
-        while (scan.hasNextLine()) {
-                String currentLine = scan.nextLine();
-                //currentLine = currentLine.replaceAll("\\s","");
-                Lines.add(currentLine);   
+        try (Scanner scan = new Scanner(file)) {
+            ArrayList<String> Lines = new ArrayList<>();
+            
+            while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+                    //currentLine = currentLine.replaceAll("\\s","");
+                    Lines.add(currentLine);   
+            }
+            //  MakeGraph Graph = new MakeGraph(Lines);   
+            //  Graph.start();
+            TestCaseGen tcg = new TestCaseGen(Lines);
+            tcg.start();
         }
-         MakeGraph Graph = new MakeGraph(Lines);   
-         Graph.start();
-         //Graph.printGraph();
             
 
             /*for (int i = 0; i < Lines.size(); i++) {

@@ -16,7 +16,6 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, IOException {
        
        String fileName = "/home/nahid/Documents/CFG-TestcaseGeneration/cfg/test.txt";
-       SourceCodeReader Sc;                
-       Sc = new SourceCodeReader(fileName);
+       SourceCodeReader Sc = new SourceCodeReader(fileName);
     }  
 }
