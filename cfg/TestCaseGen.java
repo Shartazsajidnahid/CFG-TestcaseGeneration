@@ -86,13 +86,27 @@ public class TestCaseGen {
                 System.out.println("yessssssss : " + values);
 
             }
-            else if(checker.isIf(currentString) || checker.isElseIf(currentString)){
-                System.out.println("HEY");
+            else if(checker.isIf(currentString) || checker.isElseIf(currentString) || checker.isLoop(currentString)){
+
                 int cursor = 3;
                 if(checker.isElseIf(currentString)){
-                    System.out.println("ELSEIF");
                     cursor = 7;
                 }
+                if(checker.isWhile(currentString)){
+                    cursor = 6;
+                }
+                if(checker.isFor(currentString)){
+                    System.out.println("FORRR");
+                    cursor = 4;
+                    for(;cursor<currentString.length();cursor++){
+                        if(currentString.charAt(cursor)== ';') {
+                            cursor++;
+                            break;}
+
+                    }
+                }
+
+
                 Character var1;
 
                 // for(;cursor<currentString.length(); cursor++ ){
@@ -114,7 +128,11 @@ public class TestCaseGen {
 
                 String secondPart = "";
                 int var2 = 0;
-                while(currentString.charAt(cursor)!=')'){
+                System.out.println("DEBUG MODE: ");
+                while(cursor<currentString.length()){
+//                    System.out.println(currentString.charAt(cursor));
+                    if(currentString.charAt(cursor)==')' ) break;
+                    if(currentString.charAt(cursor)==';' ) break;
                     secondPart += currentString.charAt(cursor++);
                 }
                 System.out.println(secondPart);
@@ -159,8 +177,9 @@ public class TestCaseGen {
 
             }
 
-            else if(checker.isLoop(curNode.Statement)){
-            }
+//            else if(checker.isFor(currentString)){
+//
+//            }
 
             else{
 
@@ -193,7 +212,4 @@ public class TestCaseGen {
         }
         return false;
     }
-
-
-
 }
