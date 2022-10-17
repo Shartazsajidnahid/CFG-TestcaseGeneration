@@ -1,6 +1,8 @@
 package cfg;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestCaseGen {
 
@@ -43,6 +45,7 @@ public class TestCaseGen {
     
     
     public void makeRelations(Node branchRoot){
+        HashMap<Character, Integer> values = new HashMap<Character, Integer>();
         
         while(cur<Lines.size()) {
 
@@ -50,6 +53,7 @@ public class TestCaseGen {
             Node curNode = new Node(cur,Lines.get(cur));
             // System.out.println(curNode.Statement + " NAHID");
             String currentString = curNode.Statement;
+            currentString = currentString.replaceAll("\\s","");
 
             if(checker.isIf(currentString) || checker.isElseIf(currentString)){
                 System.out.println("HEY");
@@ -59,8 +63,7 @@ public class TestCaseGen {
                     cursor = 7;
                 }
                 Character var1;
-                currentString = currentString.replaceAll("\\s","");
-
+                
                 // for(;cursor<currentString.length(); cursor++ ){
                 //     // if(currentString[])
                 //     System.out.println(currentString.charAt(cursor) + " " + cursor);
@@ -72,14 +75,31 @@ public class TestCaseGen {
                     if(currentString.charAt(cursor+1) == '='){
                         cursor+=2;
                     }
-                    else{
+                    else{ 
                         cursor++;
                     }
                     
                 }
+
+                String secondPart = "";
+                int var2; 
+                while(currentString.charAt(cursor)!=')'){
+                    secondPart += currentString.charAt(cursor++);
+                }
+                System.out.println(secondPart);
                 
-                System.out.println(currentString.charAt(cursor));
-                // int var2 =Integer.parseInt(String.valueOf(currentString.charAt(cursor)));  
+                try {
+                    var2 = Integer.parseInt(secondPart);
+                    System.out.println("integer: " + var2);
+                    
+                } catch (NumberFormatException e) {
+                    System.out.println("Input String cannot be parsed to Integer.");
+                }
+
+
+
+
+                // System.out.println(currentString.charAt(cursor));
                 // var2+=100;
 
 
