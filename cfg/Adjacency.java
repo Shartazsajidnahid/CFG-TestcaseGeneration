@@ -17,6 +17,13 @@ public class Adjacency {
         vis = new boolean[Lines.size()];
         //for(int i=0; i<Lines.size(); i++) System.out.println(i+ " " + Lines.get(i));
     }
+
+    public void makeAdacenct(Node root, int i) throws IOException {
+        dfs(root, i);
+        bfs(root);
+        printGraph();
+        saveGraph();
+    }
         
     public void dfs(Node cur, int prev){
         //System.out.println(prev + " " + cur.nodeNumber+" "+cur.Statement);
@@ -52,12 +59,7 @@ public class Adjacency {
                 }
             }
         }
-        try (FileWriter myWriter = new FileWriter("/home/nahid/Documents/CFG-TestcaseGeneration/cfg/LeveledNodes.txt")) {
-            myWriter.write((Lines.size())+"\n");
-            for(int i=0; i<Lines.size(); i++){
-                myWriter.write(i + " " + level[i]+"\n");
-            }
-        }
+
         
     }
     public void printGraph (){
@@ -98,5 +100,6 @@ public class Adjacency {
         int cc = edgeCount - Lines.size() + 2;
         System.out.println("\n\n\n\nCyclomatic Complexity : "   + cc );
     }
-    
+
+
 }

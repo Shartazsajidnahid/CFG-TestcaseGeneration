@@ -10,6 +10,7 @@ public class Node {
     ArrayList<Node>parents = new ArrayList<>();
     ArrayList<Node>childs = new ArrayList<>();
     boolean iff, elsif, els, loop, end;
+
     public Node(int nodeNo, String nodeStatement){
         this.nodeNumber = nodeNo;
         this.Statement = nodeStatement;

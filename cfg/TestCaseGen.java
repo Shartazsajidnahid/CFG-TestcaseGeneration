@@ -2,7 +2,6 @@ package cfg;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class TestCaseGen {
 
@@ -10,7 +9,7 @@ public class TestCaseGen {
     ArrayList<String>Lines;
     boolean vis[];
     int[][] adj = new int[50][50];
-    SyntaxIdentifier checker = new SyntaxIdentifier();
+    CheckSyn checker = new CheckSyn();
     int cur = 0;
 
 
@@ -36,11 +35,8 @@ public class TestCaseGen {
         
         Node root = new Node(cur,Lines.get(cur));
         cur++;
-        
-        
         makeRelations(root);
-        
-       
+
     }
     
     
