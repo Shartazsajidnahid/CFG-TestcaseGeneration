@@ -43,6 +43,7 @@ public class TestCaseGen {
 
     public void makeRelations(Node branchRoot){
         HashMap<Character, Integer> values = new HashMap<Character, Integer>();
+        HashMap<Character, ArrayList<Integer>> tcval = new HashMap<>();
 
         while(cur<Lines.size()) {
 
@@ -120,7 +121,6 @@ public class TestCaseGen {
 
                 try {
                     var2 = Integer.parseInt(secondPart);
-                    System.out.println("integer: " + var2);
 
                 } catch (NumberFormatException e) {
 //                    System.out.println("Input String cannot be parsed to Integer.");
@@ -132,18 +132,29 @@ public class TestCaseGen {
                     if(secondPart.length()>1){
                         var2 = getCalcedval(var2, secondPart);
                     }
-                    System.out.println("var2 : " + var2);
 
                 }
-
-
-
-
-                // System.out.println(currentString.charAt(cursor));
-                // var2+=100;
-
-
+                int less = var2-1, great = var2+1;
+                ArrayList<Integer> tcs = new ArrayList<>();
+                tcs.add(var2);
+                tcs.add(less);
+                tcs.add(great);
                 // System.out.println(var2);
+                if(tcval.containsKey(var1)){
+                    if( !tcval.get(var1).contains(var2)){
+                        tcval.get(var1).add(var2);
+                    }
+                    if( !tcval.get(var1).contains(less)){
+                        tcval.get(var1).add(less);
+                    }
+                    if( !tcval.get(var1).contains(great)){
+                        tcval.get(var1).add(great);
+                    }
+                }
+                else{
+                    tcval.put(var1, tcs);
+                }
+
 
 
             }
@@ -156,6 +167,7 @@ public class TestCaseGen {
             }
             cur++;
         }
+        System.out.println(tcval);
     }
 
     private int getCalcedval(int var, String secondPart) {
