@@ -51,15 +51,13 @@ public class TestCaseGen {
             // System.out.println(curNode.Statement + " NAHID");
             String currentString = curNode.Statement;
 
-            if(checker.isElse(curNode.Statement)){
-
-            }
-            
-            else if(checker.isElseIf(curNode.Statement)){
-            }
-    
-            else if(checker.isIf(curNode.Statement)){
+            if(checker.isIf(currentString) || checker.isElseIf(currentString)){
+                System.out.println("HEY");
                 int cursor = 3;
+                if(checker.isElseIf(currentString)){
+                    System.out.println("ELSEIF");
+                    cursor = 7;
+                }
                 Character var1;
                 currentString = currentString.replaceAll("\\s","");
 
@@ -81,10 +79,11 @@ public class TestCaseGen {
                 }
                 
                 System.out.println(currentString.charAt(cursor));
-                int var2 =Integer.parseInt(String.valueOf(currentString.charAt(cursor)));  
-                var2+=100;
+                // int var2 =Integer.parseInt(String.valueOf(currentString.charAt(cursor)));  
+                // var2+=100;
 
-                System.out.println(var2);
+
+                // System.out.println(var2);
 
 
             }
